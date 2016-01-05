@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="AsParallelAndSelect.cs" />
     <Compile Include="Cancellation.cs" />
+    <Compile Include="ForceParallel.cs" />
     <Compile Include="IOIntensiveFunctions.cs" />
     <Compile Include="FunctionalPurity.cs" />
     <Compile Include="OptimizingPLINQ.cs" />

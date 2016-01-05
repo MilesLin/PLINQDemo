@@ -10,8 +10,11 @@ namespace PLINQDemo
     {
         public void Run()
         {
-            // AsParallel() 用法， AsOrdered()。 
-            var data = "abcdef".AsParallel().AsOrdered().Select(x => char.ToUpper(x));
+            string str = "abcdef";
+            var data = "abcdef".AsParallel();
+            data = data.AsOrdered().Select(x => char.ToUpper(x));
+            data.AsSequential().Select(x => char.ToLower(x));
+                //.AsSequential().Select(x => char.ToLower(x));
             foreach (var item in data)
             {
                 Console.WriteLine(item);

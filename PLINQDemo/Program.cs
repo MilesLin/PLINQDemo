@@ -11,13 +11,15 @@ namespace PLINQDemo
     {
         static void Main(string[] args)
         {
-            ParallelSpellchecker ps = new ParallelSpellchecker();
-
-            //ps.Run();
 
             AsParallelAndSelect ap = new AsParallelAndSelect();
-
             //ap.Run();
+
+            ForceParallel fpl = new ForceParallel();
+            fpl.Run();
+
+            ParallelSpellchecker ps = new ParallelSpellchecker();
+            //ps.Run();
 
             ParallelSpellcheckerUsingThreadLocal asu = new ParallelSpellcheckerUsingThreadLocal();
             //asu.Run();
@@ -34,7 +36,7 @@ namespace PLINQDemo
 
             OptimizingPLINQ op = new OptimizingPLINQ();
             //op.Run();
-            op.Run2();
+            //op.Run2();
 
             //IEnumerable<int> numbers = Enumerable.Range(3, 100000 - 3);
             //long startTime = DateTime.Now.Ticks; //Nanosecond
