@@ -16,7 +16,7 @@ namespace PLINQDemo
             //ap.Run();
 
             ForceParallel fpl = new ForceParallel();
-            fpl.Run();
+            //fpl.Run();
 
             ParallelSpellchecker ps = new ParallelSpellchecker();
             //ps.Run();
@@ -26,6 +26,9 @@ namespace PLINQDemo
 
             FunctionalPurity fp = new FunctionalPurity();
             //fp.Run();
+
+            MergeOptions mo = new MergeOptions();
+            mo.Run();
 
             IOIntensiveFunctions iof = new IOIntensiveFunctions();
             //iof.Run();
@@ -38,17 +41,12 @@ namespace PLINQDemo
             //op.Run();
             //op.Run2();
 
-            //IEnumerable<int> numbers = Enumerable.Range(3, 100000 - 3);
-            //long startTime = DateTime.Now.Ticks; //Nanosecond
-            //var a = numbers.Where(x => x % 3 == 0);
-            //long endTime = DateTime.Now.Ticks; //Nanosecond
-            //Console.WriteLine(endTime - startTime);
+            HandleAggregateException hae = new HandleAggregateException();
+            //hae.Run();
+            //hae.Run2();
 
-            //var d = "ADdcbdasdf".AsParallel().Take(5).WithExecutionMode(ParallelExecutionMode.ForceParallelism);
-            //foreach (var item in d)
-            //{
-            //    Console.WriteLine(item);
-            //}
+            MeasurePerformance mp = new MeasurePerformance();
+            //mp.Run();
         }
     }
 }
