@@ -7,15 +7,15 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PLINQDemo
+namespace PLINQDemo.ParallelSpellcheckerFolder
 {
     public class ParallelSpellcheckerUsingThreadLocal
     {
         public void Run() 
         {
-            if (!File.Exists("WordLookup.txt"))    // Contains about 150,000 words
-                new WebClient().DownloadFile(
-                  "http://www.albahari.com/ispell/allwords.txt", "WordLookup.txt");
+            //if (!File.Exists("WordLookup.txt"))    // Contains about 150,000 words
+            //    new WebClient().DownloadFile(
+            //      "http://www.albahari.com/ispell/allwords.txt", "WordLookup.txt");
 
             var wordLookup = new HashSet<string>(
               File.ReadAllLines("WordLookup.txt"),
@@ -31,14 +31,14 @@ namespace PLINQDemo
             // 使用ThreadLocal，建立分開的Random object 給每一個Thread
 
             //new Random(參數)， 是為了確保如果兩個Random objects 被建立在很短的時間，會回傳不同的亂數序列
-            var localRandom = new ThreadLocal<Random>(() => new Random(Guid.NewGuid().GetHashCode()));
+            var allocationRandom = new ThreadLocal<Random>(() => new Random(Guid.NewGuid().GetHashCode()));
             
             // 隨機取100W的值塞給wordsToTest
             string[] wordsToTest = Enumerable.Range(0, 1000000)
                 .AsParallel()
-              .Select(i => wordList[localRandom.Value.Next(0, wordList.Length)])
+              .Select(i => wordList[allocationRandom.Value.Next(0, wordList.Length)])
               .ToArray();            
-
+                    
             var startTime = DateTime.Now.Ticks;
 
             var endTime = DateTime.Now.Ticks;

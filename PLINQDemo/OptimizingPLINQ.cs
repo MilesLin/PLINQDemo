@@ -21,7 +21,7 @@ namespace PLINQDemo
             // 用迴圈來逐一查看結果，則必須將背景工作執行緒的結果序列化製列舉程式執行緒上。
             long startTime = DateTime.Now.Ticks; //Nanosecond
             var data = "abcdef".AsParallel().AsOrdered().Select(x => char.ToUpper(x));
-            foreach (var item in data) 
+            foreach (var item in data)
             {
                 this.DoSomething(item);
             }
@@ -52,22 +52,10 @@ namespace PLINQDemo
 
         public void Run2()
         {
-            // 輸入端優化
-            // 分割種類 分定界分割 與 區塊分割
-            // 只要知道長度的 IList 則會自動使用訂節分割
-            // 其餘則使用 區塊分割
             
-            // 定界分割只有在委派時間不長，來源具有大量項目，且每個分割的總工作量大致相同時較快。
-            // 因此在大多數情節中區塊分割比較快。 在來源具有小量項目或委派執行較長時，區塊分割和定界分割的效能幾乎相等。
-
-            // 針對 PLINQ 設定附載平衡的 Partitioner
-
-            // 當使用負載平衡時，就會使用區塊分割，並在要求項目時將項目以小區塊的形式交給每個資料分割。
-            // 這個方法可以協助確保所有資料分割都有項目可以處理，直到整個迴圈或查詢完成為止。
-            // 若要針對PLINQ使用負載平衡，請使用Partitioner.Create            
-
             var nums = Enumerable.Range(0, 10000000).ToArray();
 
+            // 開啟負載平衡，告訴PLINQ要使用區塊分割。
             Partitioner<int> customPartitioner = Partitioner.Create(nums, true);
 
             long startTime = DateTime.Now.Ticks; //Nanosecond

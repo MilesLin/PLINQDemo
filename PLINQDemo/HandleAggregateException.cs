@@ -1,56 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace PLINQDemo
 {
     public class HandleAggregateException
     {
-        public void Run() 
+        public void Run()
         {
             // 呼叫端try-catch
             var data = this.GetData();
-            
+
             try
             {
-                data.AsParallel().Select(x => new { value = x, thread = Thread.CurrentThread.ManagedThreadId }).ForAll(x =>
+                data.AsParallel().Select(x => new { value = x }).ForAll(x =>
                 {
                     var result = x.value.Substring(2, 1);
                     Console.WriteLine(result);
-                });
-            }
-            catch (AggregateException ae)
-            {
-                foreach (var ex in ae.InnerExceptions)
-                {
-                    Console.WriteLine("aggregateException: " + ex.Message);
-                }                
-            }
-        }
-
-        public void Run2()
-        {
-            //在委派內放置try-catch，透過這種方式，可以立即攔截Exception，Exception就不會拋到AggregateException
-            var data = this.GetData();
-
-            try
-            {
-                data.AsParallel().Select(x => new { value = x, thread = Thread.CurrentThread.ManagedThreadId }).ForAll(x =>
-                {
-                    try
-                    {
-                        var th = Thread.CurrentThread.ManagedThreadId;
-                        var result = x.value.Substring(2, 1);
-                        Console.WriteLine(result);
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e.Message);                        
-                    }
-                    
                 });
             }
             catch (AggregateException ae)
@@ -62,8 +28,36 @@ namespace PLINQDemo
             }
         }
 
+        public void Run2()
+        {
+            //在委派內放置try-catch，透過這種方式，可以立即攔截Exception，Exception就不會拋到AggregateException
+            var data = this.GetData();
 
-        private List<string> GetData() 
+            try
+            {
+                data.AsParallel().Select(x => new { value = x }).ForAll(x =>
+                {
+                    try
+                    {
+                        var result = x.value.Substring(2, 1);
+                        Console.WriteLine(result);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
+                });
+            }
+            catch (AggregateException ae)
+            {
+                foreach (var ex in ae.InnerExceptions)
+                {
+                    Console.WriteLine("aggregateException: " + ex.Message);
+                }
+            }
+        }
+
+        private List<string> GetData()
         {
             return new List<string>()
             {

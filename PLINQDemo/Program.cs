@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
+using PLINQDemo.ParallelSpellcheckerFolder;
+using PLINQDemo.SettingFolder;
 
 namespace PLINQDemo
 {
@@ -11,15 +13,20 @@ namespace PLINQDemo
     {
         static void Main(string[] args)
         {
-
-            AsParallelAndSelect ap = new AsParallelAndSelect();
+            AsParallelAndSelect ap = new AsParallelAndSelect();            
             //ap.Run();
 
             ForceParallel fpl = new ForceParallel();
             //fpl.Run();
 
+            Spellchecker s = new Spellchecker();
+            //s.Run();
+
             ParallelSpellchecker ps = new ParallelSpellchecker();
             //ps.Run();
+
+            RandomMutiThread rmt = new RandomMutiThread();
+            //rmt.Run();
 
             ParallelSpellcheckerUsingThreadLocal asu = new ParallelSpellcheckerUsingThreadLocal();
             //asu.Run();
@@ -28,9 +35,9 @@ namespace PLINQDemo
             //fp.Run();
 
             MergeOptions mo = new MergeOptions();
-            mo.Run();
+            //mo.Run();
 
-            IOIntensiveFunctions iof = new IOIntensiveFunctions();
+            DegreeOfParallelism iof = new DegreeOfParallelism();
             //iof.Run();
 
             Cancellation cl = new Cancellation();
@@ -42,11 +49,14 @@ namespace PLINQDemo
             //op.Run2();
 
             HandleAggregateException hae = new HandleAggregateException();
-            //hae.Run();
-            //hae.Run2();
+            hae.Run();
+            hae.Run2();
 
             MeasurePerformance mp = new MeasurePerformance();
             //mp.Run();
+
+            DoNotUsePLINQ dnup = new DoNotUsePLINQ();
+            //dnup.Run();
         }
     }
 }

@@ -42,18 +42,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AsParallelAndSelect.cs" />
-    <Compile Include="Cancellation.cs" />
-    <Compile Include="ForceParallel.cs" />
+    <Compile Include="DoNotUsePLINQ.cs" />
+    <Compile Include="ParallelSpellcheckerFolder\Spellchecker.cs" />
+    <Compile Include="SettingFolder\Cancellation.cs" />
+    <Compile Include="SettingFolder\ForceParallel.cs" />
     <Compile Include="HandleAggregateException.cs" />
-    <Compile Include="IOIntensiveFunctions.cs" />
-    <Compile Include="FunctionalPurity.cs" />
-    <Compile Include="MeasurePerformance.cs" />
-    <Compile Include="MergeOptions.cs" />
+    <Compile Include="SettingFolder\DegreeOfParallelism.cs" />
+    <Compile Include="SettingFolder\MergeOptions.cs" />
     <Compile Include="OptimizingPLINQ.cs" />
-    <Compile Include="ParallelSpellcheckerUsingThreadLocal.cs" />
-    <Compile Include="ParallelSpellchecker.cs" />
+    <Compile Include="ParallelSpellcheckerFolder\ParallelSpellcheckerUsingThreadLocal.cs" />
+    <Compile Include="ParallelSpellcheckerFolder\ParallelSpellchecker.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ParallelSpellcheckerFolder\RandomMutiThread.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

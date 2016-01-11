@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PLINQDemo
+namespace PLINQDemo.SettingFolder
 {
     public class Cancellation
     {
@@ -85,17 +85,8 @@ namespace PLINQDemo
                 catch (OperationCanceledException e)
                 {
                     Console.WriteLine(e.Message);
-                }
-                catch (AggregateException ae) 
-                {
-                    if (ae.InnerExceptions != null)
-                    {
-                        foreach (Exception e in ae.InnerExceptions)
-                        {
-                            Console.WriteLine(e.Message);
-                        }
-                    }
-                }
+                    Console.WriteLine("以取消執行");
+                }                
 
                 if (results != null)
                 {
@@ -114,13 +105,15 @@ namespace PLINQDemo
         // 同步執行的方法
         private double Function(int num, CancellationToken cts)
         {
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 50; i++)
             {
                 // 假設執行很長時間
-                Thread.SpinWait(5000000);
+                Thread.Sleep(1000)
+                    ;
+                Console.WriteLine(i);
 
                 // 檢查是否取消了
-                cts.ThrowIfCancellationRequested();                
+                cts.ThrowIfCancellationRequested();
             }
 
             return Math.Sqrt(num);

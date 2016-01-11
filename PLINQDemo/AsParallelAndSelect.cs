@@ -10,15 +10,22 @@ namespace PLINQDemo
     {
         public void Run()
         {
-            string str = "abcdef";
-            var data = "abcdef".AsParallel();
-            data = data.AsOrdered().Select(x => char.ToUpper(x));
-            data.AsSequential().Select(x => char.ToLower(x));
-                //.AsSequential().Select(x => char.ToLower(x));
-            foreach (var item in data)
+            // AsOrdered
+            // AsSequential
+            // 
+            string[] array ={ "Adams","Arthur","Buchanan","Bush",
+                                 "Carter","Cleveland","Clinton","Coolidge","Eisenhower",
+                                 "Hayes","Hoover","McKinley","Roosevelt",
+                                 "Taft","Taylor","Wilson"};
+            
+            foreach (var item in array.AsParallel().Select(x => x.ToLower()))
             {
                 Console.WriteLine(item);
             }
+
         }
+
     }
+    
+
 }
